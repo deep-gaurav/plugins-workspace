@@ -559,7 +559,9 @@ impl Builder {
                         self.max_file_size,
                         self.targets,
                     )?;
-                    attach_logger(max_level, log)?;
+                    if let Err(err)= attach_logger(max_level, log) {
+                        log::warn!("Coudnt attach logger {err:?}");
+                    }
                 }
                 Ok(())
             })
